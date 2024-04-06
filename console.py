@@ -121,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg) -> None:
         """
-            oijwiejfowe
+        Create an object with given parameters.
         """
         usr_input = arg.split(' ')
 
@@ -129,23 +129,30 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if usr_input[0] in self.ALL_CLASSES:
-            obj = self.ALL_CLASSES[usr_input[0]]()
-            print(obj.id)
-            for match in range(1, len(usr_input)):
-                if "=" in usr_input[match]:
-                    attribute, value = usr_input[match].split('=')
-                    if '_' in value:
-                        value = value.replace("_", " ")
-                    if hasattr(obj, attribute):
-                        if isinstance(getattr(obj, attribute), float):
-                            if '.' not in value:
-                                continue
-                        setattr(obj, attribute, value.strip('"'))
+        class_name = usr_input[0]
+        if class_name in self.ALL_CLASSES:
+            obj = self.ALL_CLASSES[class_name]()
+            for parameter in usr_input[1:]:
+                key, value = parameter.split('=')
+                key = key.strip()
+                value = value.strip('"')
+
+                if '_' in value:
+                    value = value.replace("_", " ")
+
+                if hasattr(obj, key):
+                    attr_type = type(getattr(obj, key))
+                    if attr_type == str:
+                        setattr(obj, key, value)
+                    elif attr_type == float:
+                        setattr(obj, key, float(value))
+                    elif attr_type == int:
+                        setattr(obj, key, int(value))
+
             obj.save()
             print(obj)
         else:
-            print("** class dosen't exist **")
+            print("** class doesn't exist **")
 
     def help_create(self):
         """ Help information for the create method """
