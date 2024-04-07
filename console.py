@@ -150,7 +150,6 @@ class HBNBCommand(cmd.Cmd):
                         setattr(obj, key, int(value))
 
             obj.save()
-            print(obj)
         else:
             print("** class doesn't exist **")
 
