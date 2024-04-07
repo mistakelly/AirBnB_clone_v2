@@ -40,11 +40,18 @@ class FileStorage:
         )
         self.__objects[key] = obj
 
-    def all(self) -> dict:
+    def all(self, cls=None) -> dict:
         """
             this method is responsible for returning the whole
             object in the file __objects dictionary.
         """
+        if cls:
+            dic = {}
+            for k, v in self.__objects.items():
+                key = "{}.{}".format(v.__class__.__name__, v.id)
+                dic[key] = v
+            return dic
+
         return self.__objects
 
     def save(self) -> None:
@@ -96,3 +103,8 @@ class FileStorage:
                     # print(result)
 
                     self.__objects[k] = result
+
+    def delete(self, obj=None):
+        if obj:
+            key = "{}.{}".format(obj.__class__.__name__, obj.id)
+            del self.__objects[key]
