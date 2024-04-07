@@ -141,14 +141,14 @@ class HBNBCommand(cmd.Cmd):
                 if '_' in value:
                     value = value.replace("_", " ")
 
-                if hasattr(obj, key):
-                    attr_type = type(getattr(obj, key))
-                    if attr_type == str:
-                        setattr(obj, key, value)
-                    elif attr_type == float:
-                        setattr(obj, key, float(value))
-                    elif attr_type == int:
-                        setattr(obj, key, int(value))
+                # if hasattr(obj, key):
+                attr_type = type(getattr(obj, key))
+                if attr_type == str:
+                    setattr(obj, key, value)
+                elif attr_type == float:
+                    setattr(obj, key, float(value))
+                elif attr_type == int:
+                    setattr(obj, key, int(value))
 
             obj.save()
         else:
