@@ -4,9 +4,13 @@
     that will be inherited for all objects
 """
 
-
 import uuid
 from datetime import datetime
+from sqlalchemy.orm import declarative_base
+from sqlalchemy import Column, String, DateTime
+import models
+
+Base = declarative_base()
 
 
 class BaseModel:
@@ -15,6 +19,10 @@ class BaseModel:
     """
 
     TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
+
+    id = Column(String(60), nullable=False, primary_key=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, **kwargs):
         """
@@ -32,7 +40,6 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            models.storage.new(self)
 
     def __str__(self) -> str:
         """
@@ -49,9 +56,9 @@ class BaseModel:
         """
             save method
         """
-        import models
         self.updated_at = datetime.now()
         models.storage.save()
+        models.storage.new(self)
 
     def to_dict(self) -> dict:
         """
@@ -60,8 +67,17 @@ class BaseModel:
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = self.__class__.__name__
 
+        if '_sa_instance_state' in obj_dict.keys():
+            del obj_dict['_sa_instance_state']
+
         for k, v in obj_dict.items():
             if isinstance(v, datetime):
                 obj_dict[k] = v.isoformat()
 
         return obj_dict
+
+    def delete(self):
+        """
+            delete the current instance
+        """
+        models.storage.delete(self)
