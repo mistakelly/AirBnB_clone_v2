@@ -11,6 +11,7 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
+import shlex
 
 
 class FileStorage:
@@ -40,20 +41,23 @@ class FileStorage:
         )
         self.__objects[key] = obj
 
-    def all(self, cls=None) -> dict:
-        """
-            this method is responsible for returning the whole
-            object in the file __objects dictionary.
+    def all(self, cls=None):
+        """returns a dictionary
+        Return:
+            returns a dictionary of __object
         """
         dic = {}
         if cls:
-            for k, v in self.__objects.items():
-                cls_name, cls_id = k.split('.')
-                if cls.__name__ == cls_name:
-                    key = "{}.{}".format(v.__class__.__name__, v.id)
-                    dic[key] = v
+            dictionary = self.__objects
+            for key in dictionary:
+                partition = key.replace('.', ' ')
+                partition = shlex.split(partition)
+                if partition[0] == cls.__name__:
+                    dic[key] = self.__objects[key]
             return dic
-        return self.__objects
+        else:
+            return self.__objects
+
 
     def save(self) -> None:
         """
