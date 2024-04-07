@@ -51,11 +51,8 @@ class FileStorage:
             for k, v in self.__objects.items():
                 cls_name, cls_id = k.split('.')
                 if cls.__name__ == cls_name:
-                    key = "{}.{}".format(v.__class__.__name__, v.id)
-                    print(key)
-                    dic[key] = v
+                    dic[k] = v
             return dic
-        return self.__objects
 
     def save(self) -> None:
         """
