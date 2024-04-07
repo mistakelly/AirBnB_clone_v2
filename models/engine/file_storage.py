@@ -48,10 +48,11 @@ class FileStorage:
         if cls:
             dic = {}
             for k, v in self.__objects.items():
-                key = "{}.{}".format(v.__class__.__name__, v.id)
-                dic[key] = v
+                cls_name, cls_id = k.split('.')
+                if cls.__name__ == cls_name:
+                    key = "{}.{}".format(cls.__name__, v.id)
+                    dic[key] = v
             return dic
-
         return self.__objects
 
     def save(self) -> None:
@@ -71,7 +72,7 @@ class FileStorage:
         # print(serialized_obj)
         # dump into file storage
         with open(self.__file_path, "w") as obj_dic:
-            json.dump(serialized_obj, obj_dic)
+            json.dump(serialized_obj, obj_dic, indent=2)
 
     def reload(self) -> None:
         """
