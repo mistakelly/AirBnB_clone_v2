@@ -45,12 +45,13 @@ class FileStorage:
             this method is responsible for returning the whole
             object in the file __objects dictionary.
         """
+        dic = {}
         if cls:
-            dic = {}
             for k, v in self.__objects.items():
                 cls_name, cls_id = k.split('.')
                 if cls.__name__ == cls_name:
-                    key = "{}.{}".format(v.__name__, v.id)
+                    key = "{}.{}".format(v.__class__.__name__, v.id)
+                    print(key)
                     dic[key] = v
             return dic
         return self.__objects
@@ -72,7 +73,7 @@ class FileStorage:
         # print(serialized_obj)
         # dump into file storage
         with open(self.__file_path, "w") as obj_dic:
-            json.dump(serialized_obj, obj_dic, indent=2)
+            json.dump(serialized_obj, obj_dic)
 
     def reload(self) -> None:
         """
@@ -108,4 +109,5 @@ class FileStorage:
     def delete(self, obj=None):
         if obj:
             key = "{}.{}".format(obj.__class__.__name__, obj.id)
+            print(key)
             del self.__objects[key]
