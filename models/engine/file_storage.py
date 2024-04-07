@@ -53,6 +53,7 @@ class FileStorage:
                 if cls.__name__ == cls_name:
                     dic[k] = v
             return dic
+        return self.__objects
 
     def save(self) -> None:
         """
