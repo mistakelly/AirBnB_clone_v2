@@ -132,6 +132,7 @@ class HBNBCommand(cmd.Cmd):
         class_name = usr_input[0]
         if class_name in self.ALL_CLASSES:
             obj = self.ALL_CLASSES[class_name]()
+            print(obj.id)
             for parameter in usr_input[1:]:
                 key, value = parameter.split('=')
                 key = key.strip()
