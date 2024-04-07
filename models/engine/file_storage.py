@@ -51,7 +51,6 @@ class FileStorage:
                 cls_name, cls_id = k.split('.')
                 if cls.__name__ == cls_name:
                     key = "{}.{}".format(v.__class__.__name__, v.id)
-                    print(key)
                     dic[key] = v
             return dic
         return self.__objects
@@ -109,5 +108,4 @@ class FileStorage:
     def delete(self, obj=None):
         if obj:
             key = "{}.{}".format(obj.__class__.__name__, obj.id)
-            print(key)
             del self.__objects[key]
