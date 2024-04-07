@@ -50,7 +50,7 @@ class FileStorage:
             for k, v in self.__objects.items():
                 cls_name, cls_id = k.split('.')
                 if cls.__name__ == cls_name:
-                    key = "{}.{}".format(cls.__name__, v.id)
+                    key = "{}.{}".format(v.__name__, v.id)
                     dic[key] = v
             return dic
         return self.__objects
