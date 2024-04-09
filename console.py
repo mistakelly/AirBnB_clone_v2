@@ -131,8 +131,7 @@ class HBNBCommand(cmd.Cmd):
 
         class_name = usr_input[0]
         if class_name in self.ALL_CLASSES:
-            obj = self.ALL_CLASSES[class_name]()
-            print(obj.id)
+            obj_dict = {}
             for parameter in usr_input[1:]:
                 key, value = parameter.split('=')
                 key = key.strip()
@@ -140,16 +139,9 @@ class HBNBCommand(cmd.Cmd):
 
                 if '_' in value:
                     value = value.replace("_", " ")
-
-                # if hasattr(obj, key):
-                attr_type = type(getattr(obj, key))
-                if attr_type == str:
-                    setattr(obj, key, value)
-                elif attr_type == float:
-                    setattr(obj, key, float(value))
-                elif attr_type == int:
-                    setattr(obj, key, int(value))
-
+                obj_dict[key] = value
+            obj = self.ALL_CLASSES[class_name](**obj_dict)
+            print(obj.id)
             obj.save()
         else:
             print("** class doesn't exist **")
