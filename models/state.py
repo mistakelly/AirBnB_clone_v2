@@ -6,7 +6,7 @@ from sqlalchemy import Column, Integer, String
 from models.city import City
 
 
-class State(BaseModel, Base):
+class State(BaseModel):
     """
         state table.
         would be a Table in the database.
@@ -15,5 +15,3 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
     cities = relationship("City", cascade='all, delete, delete-orphan',
                           backref="state")
-
-    # name = ""
