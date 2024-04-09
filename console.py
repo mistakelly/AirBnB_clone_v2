@@ -4,8 +4,10 @@
 """
 import sys
 import cmd
+
+import models
 from models.__init__ import storage
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.user import User
 from models.state import State
 from models.city import City
@@ -142,7 +144,8 @@ class HBNBCommand(cmd.Cmd):
                 obj_dict[key] = value
             obj = self.ALL_CLASSES[class_name](**obj_dict)
             print(obj.id)
-            obj.save()
+            models.storage.new(obj)
+            models.storage.save()
         else:
             print("** class doesn't exist **")
 
