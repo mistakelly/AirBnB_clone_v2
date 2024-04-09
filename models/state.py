@@ -11,9 +11,9 @@ class State(BaseModel, Base):
         state table.
         would be a Table in the database.
     """
-    # __tablename__ = "states"
-    # name = Column(String(128), nullable=False)
-    # cities = relationship("City", cascade='all, delete, delete-orphan',
-    #                       backref="state")
+    __tablename__ = "states"
+    name = Column(String(128), nullable=False)
+    cities = relationship("City", cascade='all, delete, delete-orphan',
+                          backref="state")
 
-    name = ""
+    # name = ""
