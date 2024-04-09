@@ -6,7 +6,7 @@ from sqlalchemy import Column, Integer, String
 from models.city import City
 
 
-class State(BaseModel):
+class State(BaseModel, Base):
     """
         state table.
         would be a Table in the database.
