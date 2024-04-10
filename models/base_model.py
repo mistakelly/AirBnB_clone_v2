@@ -89,4 +89,3 @@ class BaseModel:
             delete the current instance
         """
         models.storage.delete(self)
-

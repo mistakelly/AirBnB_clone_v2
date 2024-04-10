@@ -62,7 +62,6 @@ class FileStorage:
         return self.__objects
 
     def save(self) -> None:
-        print('inside save')
         """
             for converting the python objects into python dictionary,
             so they can be stored into the file storage,this process is called
@@ -76,7 +75,6 @@ class FileStorage:
             # to represent every object to dict.
             serialized_obj[k] = v.to_dict()
         # dump into file storage
-        print('just before serializing')
         with open(self.__file_path, "w") as obj_dic:
             json.dump(serialized_obj, obj_dic)
 
