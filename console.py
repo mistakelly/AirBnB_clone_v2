@@ -1,9 +1,10 @@
-#!/usr/bin/python3
+#!/Users/mistarkelly/vagrant_project/My-Projects/ALX-ONLY/AirBnB_clone_v2/.venv/bin/python3
 """
     console for managing my objects
 """
 import sys
 import cmd
+import re
 
 import models
 from models.__init__ import storage
@@ -229,13 +230,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.ALL_CLASSES:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
-        else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all(HBNBCommand.ALL_CLASSES[args]).items():
                 print_list.append(str(v))
-
+        else:
+            for k, v in storage.all().items():
+                print_list.append(str(v))
         print(print_list)
 
     def help_all(self):
