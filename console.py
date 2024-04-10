@@ -14,6 +14,7 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
+import inspect
 
 
 class HBNBCommand(cmd.Cmd):
@@ -144,8 +145,7 @@ class HBNBCommand(cmd.Cmd):
                 obj_dict[key] = value
             obj = self.ALL_CLASSES[class_name](**obj_dict)
             print(obj.id)
-            models.storage.new(obj)
-            models.storage.save()
+            obj.save()
         else:
             print("** class doesn't exist **")
 
