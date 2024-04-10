@@ -144,10 +144,8 @@ class HBNBCommand(cmd.Cmd):
                     value = value.replace("_", " ")
                 obj_dict[key] = value
             obj = self.ALL_CLASSES[class_name](**obj_dict)
-            models.storage.new(obj)
-            models.storage.save()
             print(obj.id)
-            # obj.save()
+            obj.save()
         else:
             print("** class doesn't exist **")
 
