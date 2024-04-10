@@ -1,5 +1,6 @@
-#!/Users/mistarkelly/vagrant_project/My-Projects/ALX-ONLY/AirBnB_clone_v2/.venv/bin/python3
+#!/usr/bin/python3
 """
+#!/Users/mistarkelly/vagrant_project/My-Projects/ALX-ONLY/AirBnB_clone_v2/.venv/bin/python3
 This module instantiates an object of class DBStorage
 if the environment variable HBNB_TYPE_STORAGE is equal to db,
 otherwise it instantiates an object of class FileStorage
