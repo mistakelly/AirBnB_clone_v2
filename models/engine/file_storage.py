@@ -42,21 +42,27 @@ class FileStorage:
         )
         self.__objects[key] = obj
 
+    # echo 'all State' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd
+    # HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
     def all(self, cls=None) -> dict:
         """
             this method is responsible for returning the whole
             object in the file __objects dictionary.
         """
-        dic = {}
+        all_objects = {}
         if cls:
             for k, v in self.__objects.items():
                 cls_name, cls_id = k.split('.')
                 if cls.__name__ == cls_name:
-                    dic[k] = v
-            return dic
+                    all_objects[k] = v
+            return all_objects
+        for v in self.__objects.values():
+            if hasattr(v, '_sa_instance_state'):
+                delattr(v, '_sa_instance_state')
         return self.__objects
 
     def save(self) -> None:
+        print('inside save')
         """
             for converting the python objects into python dictionary,
             so they can be stored into the file storage,this process is called
@@ -69,9 +75,8 @@ class FileStorage:
             # call the to_dict method in the basemodel
             # to represent every object to dict.
             serialized_obj[k] = v.to_dict()
-
-        # print(serialized_obj)
         # dump into file storage
+        print('just before serializing')
         with open(self.__file_path, "w") as obj_dic:
             json.dump(serialized_obj, obj_dic)
 
@@ -87,24 +92,27 @@ class FileStorage:
         if path.exists(self.__file_path) and\
                 path.getsize(self.__file_path) > 0:
             with open(self.__file_path, "r") as db:
+                try:
+                    file_content = json.load(db)
 
-                file_content = json.load(db)
+                    for k, v in file_content.items():
 
-                for k, v in file_content.items():
+                        # split the dictionary key
+                        cls_name, cls_key = k.split('.')
 
-                    # split the dictionary key
-                    cls_name, cls_key = k.split('.')
+                        # dynamically create the class object
+                        # again according to the entry in db.
 
-                    # dynamically create the class object
-                    # again according to the entry in db.
+                        # same as doing.
+                        global_class = self.ALL_CLASSES[cls_name]
 
-                    # same as doing.
-                    global_class = self.ALL_CLASSES[cls_name]
+                        result = global_class(**v)
+                        # print(result)
 
-                    result = global_class(**v)
-                    # print(result)
-
-                    self.__objects[k] = result
+                        self.__objects[k] = result
+                except json.decoder.JSONDecodeError:
+                    print('Unable to serialize')
+                    exit(0)
 
     def delete(self, obj=None):
         """

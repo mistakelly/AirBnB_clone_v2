@@ -33,22 +33,21 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        dic = {}
+        all_classes = {}
+        model_classes = [State, City]
         if cls:
             query = self.__session.query(cls)
             for v in query:
                 key = "{}.{}".format(v.__class__.__name__, v.id)
-                dic[key] = v
-            return dic
+                all_classes[key] = v
+            return all_classes
 
-        class_list = [User, State, City, Amenity, Place, Review]
-
-        for v in class_list:
-            query = self.__session.query(v)
-            for value in query:
-                key = "{}.{}".format(value.__class__.__name__, value.id)
-                dic[key] = query
-        return dic
+        for cls in model_classes:
+            queries = self.__session.query(cls).all()
+            for query in queries:
+                key = "{}.{}".format(query.__class__.__name__, query.id)
+                all_classes[key] = query
+        return all_classes
 
     def new(self, obj):
         self.__session.add(obj)
@@ -61,5 +60,11 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        Base.metadata.create_all(self.__engine)
-        self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=True))
+        try:
+            # Create metadata
+            Base.metadata.create_all(self.__engine)
+            # Create a new session
+            self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=True))
+        except Exception as e:
+            # Handle any errors that occur during metadata creation or session initialization
+            print(f"Error occurred during reload: {e}")
