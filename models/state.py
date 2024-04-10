@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/Users/mistarkelly/vagrant_project/My-Projects/ALX-ONLY/AirBnB_clone_v2/.venv/bin/python3
 """State class for creating State table"""
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
@@ -12,6 +12,6 @@ class State(BaseModel, Base):
          would be a Table in the database.
      """
     __tablename__ = "states"
-    # name = Column(String(128), nullable=False)
-    # cities = relationship("City", cascade='all, delete, delete-orphan',
-    #                       backref="state")
+    name = Column(String(128), nullable=False)
+    cities = relationship("City", cascade='all, delete, delete-orphan',
+                          backref="state")

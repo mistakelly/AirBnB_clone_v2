@@ -1,5 +1,6 @@
-#!/usr/bin/python3
+#!/Users/mistarkelly/vagrant_project/My-Projects/ALX-ONLY/AirBnB_clone_v2/.venv/bin/python3
 """
+#!/usr/bin/python3
     BaseModel for creating every single attributes
     that will be inherited for all objects
 """
@@ -9,6 +10,7 @@ from datetime import datetime
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import Column, String, DateTime
 import models
+
 
 Base = declarative_base()
 
