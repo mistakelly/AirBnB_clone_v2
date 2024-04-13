@@ -1,6 +1,6 @@
-#!/Users/mistarkelly/vagrant_project/My-Projects/ALX-ONLY/AirBnB_clone_v2/.venv/bin/python3
-"""
 #!/usr/bin/python3
+"""
+#!/Users/mistarkelly/vagrant_project/My-Projects/ALX-ONLY/AirBnB_clone_v2/.venv/bin/python3
     responsible for persisting object state in file_db.
 """
 import json
@@ -119,6 +119,3 @@ class FileStorage:
         if obj:
             key = "{}.{}".format(obj.__class__.__name__, obj.id)
             del self.__objects[key]
-
-    def reviews(self):
-        pass
