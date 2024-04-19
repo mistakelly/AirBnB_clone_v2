@@ -76,7 +76,7 @@ class FileStorage:
             serialized_obj[k] = v.to_dict()
         # dump into file storage
         with open(self.__file_path, "w") as obj_dic:
-            json.dump(serialized_obj, obj_dic)
+            json.dump(serialized_obj, obj_dic, indent=2)
 
     def reload(self) -> None:
         """
@@ -105,7 +105,6 @@ class FileStorage:
                         global_class = self.ALL_CLASSES[cls_name]
 
                         result = global_class(**v)
-                        # print(result)
 
                         self.__objects[k] = result
                 except json.decoder.JSONDecodeError:

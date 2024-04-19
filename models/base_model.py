@@ -24,7 +24,7 @@ class BaseModel:
     TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
 
     id = Column(String(60), nullable=False, primary_key=True)
-    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    created_at = Column(DateTime, nullable=True)
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, **kwargs):
@@ -41,13 +41,11 @@ class BaseModel:
                 self.id = str(uuid.uuid4())
             if 'created_at' not in kwargs:
                 self.created_at = datetime.now()
-
         else:
             import models
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            # models.storage.new(self)
 
     def __str__(self) -> str:
         """

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-"""This module defines a class User"""
+"""This module defines a class User
 #!/Users/mistarkelly/vagrant_project/My-Projects/ALX-ONLY/AirBnB_clone_v2/.venv/bin/python3
+"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship

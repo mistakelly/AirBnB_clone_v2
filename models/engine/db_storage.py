@@ -6,7 +6,6 @@ new class for sqlAlchemy
 from os import getenv
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import (create_engine)
-from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import Base, BaseModel
 from models.state import State
 from models.city import City
@@ -36,7 +35,7 @@ class DBStorage:
 
     def all(self, cls=None):
         all_classes = {}
-        model_classes = [State, City]
+        model_classes = [State, City, User, Place, Review, Amenity]
         if cls:
             query = self.__session.query(cls)
             for v in query:
@@ -61,6 +60,7 @@ class DBStorage:
         if obj:
             self.__session.delete(obj)
 
+
     def reload(self):
         try:
             # Create metadata
@@ -70,3 +70,4 @@ class DBStorage:
         except Exception as e:
             # Handle any errors that occur during metadata creation or session initialization
             print(f"Error occurred during reload: {e}")
+
