@@ -65,9 +65,11 @@ class DBStorage:
             # Create metadata
             Base.metadata.create_all(self.__engine)
             # Create a new session
-            self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=True))
+            self.__session = scoped_session(sessionmaker(
+                bind=self.__engine, expire_on_commit=True))
         except Exception as e:
-            # Handle any errors that occur during metadata creation or session initialization
+            # Handle any errors that occur during
+            # metadata creation or session initialization
             print(f"Error occurred during reload: {e}")
 
     def close(self):
