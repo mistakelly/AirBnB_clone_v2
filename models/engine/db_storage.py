@@ -71,3 +71,6 @@ class DBStorage:
             # Handle any errors that occur during metadata creation or session initialization
             print(f"Error occurred during reload: {e}")
 
+    def close(self):
+        self.__session.close()
+
