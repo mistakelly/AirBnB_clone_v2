@@ -13,6 +13,7 @@ def hello_hbnb():
     """ Function that generates the main route """
     return 'Hello HBNB!'
 
+
 @app.route('/hbnb', strict_slashes=False)
 def do_hbnb():
     """ Function that generates the main route """
