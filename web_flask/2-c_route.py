@@ -10,21 +10,21 @@ app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello_hbnb():
+def hello_hbnb() -> str:
     """ Function that generates the main route """
     return 'Hello HBNB!'
 
 
 @app.route('/hbnb', strict_slashes=False)
-def do_hbnb():
+def do_hbnb() -> str:
     """ Function that generates that serves hbhb"""
     return 'HBNB'
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def custom_url(text):
+def custom_url(text) -> str:
     """ Function that generates that serves hbhb"""
-    if '_' in text:
+    if '_' in  text:
         text = text.replace('_', ' ')
     return f'C {text}'
 
