@@ -22,7 +22,7 @@ def do_hbnb():
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def do_hbnb(text):
+def custom_url(text):
     """ Function that generates that serves hbhb"""
     if '_' in text:
         text = text.replace('_', ' ')
