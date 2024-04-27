@@ -11,6 +11,7 @@ from models.city import City
 import models
 import shlex
 
+
 class State(BaseModel, Base):
     """
          state table.

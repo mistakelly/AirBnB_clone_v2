@@ -60,7 +60,6 @@ class DBStorage:
         if obj:
             self.__session.delete(obj)
 
-
     def reload(self):
         try:
             # Create metadata
@@ -73,4 +72,3 @@ class DBStorage:
 
     def close(self):
         self.__session.close()
-
