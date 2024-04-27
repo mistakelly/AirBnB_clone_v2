@@ -1,9 +1,12 @@
+#!/usr/bin/python3
+""" Script that starts a Flask web application """
 from flask import Flask
 
 app = Flask(__name__)
 
 @app.route('/', strict_slashes=False)
-def hello_world():
+def hello_hbnb():
+    """ Function that generates the main route """
     return 'Hello HBNB!'
 
 if __name__ == '__main__':
