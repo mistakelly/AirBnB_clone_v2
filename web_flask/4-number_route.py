@@ -40,8 +40,7 @@ def custom_python_route(text):
 @app.route('/number/<int:n>', strict_slashes=False)
 def custom_check_int(n):
     # custom int view function
-    if isinstance(n, int):
-        return f'{n} is a number'
+    return f'{n} is a number'
 
 
 if __name__ == '__main__':
