@@ -165,8 +165,8 @@ class HBNBCommand(cmd.Cmd):
 
 
                 setattr(instance, attr, value)
-                instance.save()
-                print(instance.id)
+        instance.save()
+        print(instance.id)
                
 
     def help_create(self):
