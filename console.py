@@ -163,13 +163,11 @@ class HBNBCommand(cmd.Cmd):
                 if "_" in value:
                     value = value.replace("_", " ")
 
-                try:
-                    getattr(instance, attr)
-                    setattr(instance, attr, value)
-                    instance.save()
-                    print(instance.id)
-                except Exception as e:
-                    pass
+
+                setattr(instance, attr, value)
+                instance.save()
+                print(instance.id)
+               
 
     def help_create(self):
         """Help information for the create method"""
