@@ -1,8 +1,13 @@
-#!/usr/bin/python3
-"""
 #!/Users/mistarkelly/vagrant_project/My-Projects/ALX-ONLY/AirBnB_clone_v2/.venv/bin/python3
+"""
+#!/usr/bin/python3
     console for managing my objects
 """
+from colorama import init, Fore, Back, Style
+
+# Initialize colorama with autoreset
+init(autoreset=True)
+
 import sys
 import cmd
 import re
@@ -146,11 +151,13 @@ class HBNBCommand(cmd.Cmd):
                     if '_' in value:
                         value = value.replace("_", " ")
                     obj_dict[key] = value
-                obj = self.ALL_CLASSES[class_name](**obj_dict)
+                # obj = self.ALL_CLASSES[class_name](**obj_dict)
+                obj = self.ALL_CLASSES[class_name]()
+                setattr(obj, key, value)
                 print(obj.id)
                 obj.save()
             except ValueError:
-                print('An Error occurred')
+                print(f'{Fore.RED}An Error occurred, make sure to replace all white space in the value with an underscore\neg: create User name="kellly_chukwu"')
         else:
             print("** class doesn't exist **")
 
