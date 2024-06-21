@@ -2,10 +2,7 @@
 """
     console for managing my objects
 """
-from colorama import init, Fore, Back, Style
-
 # Initialize colorama with autoreset
-init(autoreset=True)
 
 import sys
 import cmd
@@ -154,7 +151,7 @@ class HBNBCommand(cmd.Cmd):
                 print(obj.id)
                 obj.save()
             except ValueError:
-                print(f'{Fore.RED}An Error occurred, make sure to replace all white space in the value with an underscore\neg: create User name="kellly_chukwu"')
+                print(f'An Error occurred, make sure to replace all white space in the value with an underscore\neg: create User name="kellly_chukwu"')
         else:
             print("** class doesn't exist **")
 
