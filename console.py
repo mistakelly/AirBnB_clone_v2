@@ -1,12 +1,14 @@
 #!/usr/bin/python3
+
 """
+#!/Users/mistarkelly/vagrant_project/My-Projects/ALX-ONLY/AirBnB_clone_v2/.venv/bin/python3
     console for managing my objects
 """
 # Initialize colorama with autoreset
 
 import sys
 import cmd
-# import re
+import re
 
 import models
 from models.__init__ import storage
@@ -137,6 +139,7 @@ class HBNBCommand(cmd.Cmd):
 
         class_name = usr_input[0]
         if class_name in self.ALL_CLASSES:
+            obj = self.ALL_CLASSES[class_name]()
             obj_dict = {}
             try:
                 for parameter in usr_input[1:]:
@@ -147,7 +150,10 @@ class HBNBCommand(cmd.Cmd):
                     if '_' in value:
                         value = value.replace("_", " ")
                     obj_dict[key] = value
-                obj = self.ALL_CLASSES[class_name](**obj_dict)
+
+                    if key and value:
+                        setattr(obj, key, value)
+                
                 print(obj.id)
                 obj.save()
             except ValueError:
