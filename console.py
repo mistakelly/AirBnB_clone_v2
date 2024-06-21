@@ -142,6 +142,7 @@ class HBNBCommand(cmd.Cmd):
         class_name = usr_input[0]
         if class_name in self.ALL_CLASSES:
             obj_dict = {}
+            obj = self.ALL_CLASSES[class_name]()
             try:
                 for parameter in usr_input[1:]:
                     key, value = parameter.split('=')
@@ -151,9 +152,9 @@ class HBNBCommand(cmd.Cmd):
                     if '_' in value:
                         value = value.replace("_", " ")
                     obj_dict[key] = value
-                # obj = self.ALL_CLASSES[class_name](**obj_dict)
-                obj = self.ALL_CLASSES[class_name]()
-                setattr(obj, key, value)
+
+                    if key and value:
+                        setattr(obj, key, value.replace("'", ''))
                 print(obj.id)
                 obj.save()
             except ValueError:
